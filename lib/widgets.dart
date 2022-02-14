@@ -56,32 +56,42 @@ class Todo extends StatelessWidget {
       child: Row(
         children: [
           Container(
-              height: 20.0,
-              width: 20.0,
-              margin: EdgeInsets.only(right: 12.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
-                border: isDone
-                    ? null
-                    : Border.all(
-                        width: 1.0,
-                        style: BorderStyle.solid,
-                        color: kLightTextColor,
-                      ),
-                color: isDone ? kPurpleColor : kPureWhiteColor,
-              ),
-              child: Image(
-                image: AssetImage("assets/images/check_icon.png"),
-                height:20.0,
-                width: 20.0,
-              )),
+            height: 20.0,
+            width: 20.0,
+            margin: EdgeInsets.only(right: 12.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6.0),
+              border: isDone
+                  ? null
+                  : Border.all(
+                      width: 1.0,
+                      style: BorderStyle.solid,
+                      color: kLightTextColor,
+                    ),
+              color: isDone ? kPurpleColor : kPureWhiteColor,
+            ),
+            child: Image(
+              image: AssetImage("assets/images/check_icon.png"),
+            ),
+          ),
           Text(
-            todo ?? "Check",
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
-                color:isDone ? kDarkTextColor : kLightTextColor ),
+            todo,
+            style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: isDone ? kDarkTextColor : kLightTextColor),
           ),
         ],
       ),
     );
+  }
+}
+
+// Used to remove glow when sliding screen
+class NoGlowBehaviour extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

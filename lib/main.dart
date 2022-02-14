@@ -11,11 +11,9 @@ class Initial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //   textTheme: GoogleFonts.nunitoSansTextTheme(
-      //     Theme.of(context).textTheme,
-      //   ),
-      // ),
+      theme: ThemeData(
+        fontFamily: 'Nunito Sans'
+        ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );

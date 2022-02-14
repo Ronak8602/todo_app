@@ -35,15 +35,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    child: ListView(
-                      children: [
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                      ],
+                    child: ScrollConfiguration(
+                      behavior: NoGlowBehaviour(),
+                      child: ListView(
+                        children: [
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -60,7 +63,11 @@ class _HomePageState extends State<HomePage> {
                     height: 60.0,
                     width: 60.0,
                     decoration: BoxDecoration(
-                      color: kPurpleColor,
+                      gradient: LinearGradient(
+                        colors: [Color(0xff7349fe), Color(0xff643fdb)],
+                        begin: Alignment(0.0,-1.0),
+                        end: Alignment(0.0,1.0),
+                      ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: const Image(
