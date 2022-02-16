@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants.dart';
+import 'model/task.dart';
 
-class TaskCard extends StatelessWidget {
-  final String? title;
-  final String? desc;
-  const TaskCard({Key? key, this.title, this.desc}) : super(key: key);
+class TaskCard extends StatefulWidget {
+  final Task task;
+  const TaskCard({Key? key, required this.task}) : super(key: key);
+
+  @override
+  State<TaskCard> createState() => _TaskCardState();
+}
+
+class _TaskCardState extends State<TaskCard> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("ID : ${widget.task.id}");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +33,7 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title ?? "No Title!",
+            widget.task.title ?? "No Title!",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 22.0,
@@ -30,7 +43,7 @@ class TaskCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              desc ?? "No Description!",
+              widget.task.description ?? "No Description!",
               style: const TextStyle(
                 fontSize: 16.0,
                 color: kLightTextColor,

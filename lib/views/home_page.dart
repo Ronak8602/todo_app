@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants.dart';
+import 'package:todo_app/database_helper.dart';
+import 'package:todo_app/model/task.dart';
+
 import 'package:todo_app/views/task_page.dart';
 import 'package:todo_app/widgets.dart';
 
@@ -11,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final DatabaseHelper _db = DatabaseHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,20 +40,33 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    child: ScrollConfiguration(
-                      behavior: NoGlowBehaviour(),
-                      child: ListView(
-                        children: [
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                        ],
-                      ),
-                    ),
-                  ),
+                      child: FutureBuilder(
+                    initialData: const [],
+                    future: _db.getTask(),
+                    builder: (context, snapshot) {
+                      dynamic values = snapshot.data;
+                      return ScrollConfiguration(
+                        behavior: NoGlowBehaviour(),
+                        child: ListView.builder(
+                          itemCount: values.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            TaskPage(task: values[index])));
+                              },
+                              child: TaskCard(
+                                task: values[index],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  )),
                 ],
               ),
               Positioned(
@@ -56,17 +74,25 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => TaskPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskPage(
+                          task: Task(),
+                        ),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
                   },
                   child: Container(
                     height: 60.0,
                     width: 60.0,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0xff7349fe), Color(0xff643fdb)],
-                        begin: Alignment(0.0,-1.0),
-                        end: Alignment(0.0,1.0),
+                        begin: Alignment(0.0, -1.0),
+                        end: Alignment(0.0, 1.0),
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
