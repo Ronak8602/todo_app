@@ -53,13 +53,19 @@ class _HomePageState extends State<HomePage> {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TaskPage(task: values[index])));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TaskPage(
+                                      task: values[index],
+                                    ),
+                                  ),
+                                ).then((value) {
+                                  setState(() {});
+                                });
                               },
                               child: TaskCard(
-                                task: values[index],
+                                title: values[index].title,
+                                description: values[index].description,
                               ),
                             );
                           },

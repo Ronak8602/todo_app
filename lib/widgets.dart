@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants.dart';
-import 'model/task.dart';
 
-class TaskCard extends StatefulWidget {
-  final Task task;
-  const TaskCard({Key? key, required this.task}) : super(key: key);
-
-  @override
-  State<TaskCard> createState() => _TaskCardState();
-}
-
-class _TaskCardState extends State<TaskCard> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    print("ID : ${widget.task.id}");
-    super.initState();
-  }
+class TaskCard extends StatelessWidget {
+  final String? title;
+  final String? description;
+  const TaskCard({Key? key, this.title, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +20,7 @@ class _TaskCardState extends State<TaskCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.task.title ?? "No Title!",
+            title ?? "No Title!",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 22.0,
@@ -43,7 +30,7 @@ class _TaskCardState extends State<TaskCard> {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              widget.task.description ?? "No Description!",
+              description ?? "No Description!",
               style: const TextStyle(
                 fontSize: 16.0,
                 color: kLightTextColor,
@@ -58,41 +45,46 @@ class _TaskCardState extends State<TaskCard> {
 }
 
 class Todo extends StatelessWidget {
-  String todo;
-  bool isDone;
-  Todo({Key? key, required this.todo, required this.isDone}) : super(key: key);
+  final String text;
+  final bool isDone;
+  const Todo({Key? key, required this.text, required this.isDone}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24.0,
+        vertical: 8.0,
+      ),
       child: Row(
         children: [
           Container(
-            height: 20.0,
             width: 20.0,
-            margin: EdgeInsets.only(right: 12.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.0),
-              border: isDone
-                  ? null
-                  : Border.all(
-                      width: 1.0,
-                      style: BorderStyle.solid,
-                      color: kLightTextColor,
-                    ),
-              color: isDone ? kPurpleColor : kPureWhiteColor,
+            height: 20.0,
+            margin: const EdgeInsets.only(
+              right: 12.0,
             ),
-            child: Image(
-              image: AssetImage("assets/images/check_icon.png"),
+            decoration: BoxDecoration(
+                color: isDone ? kPurpleColor : Colors.transparent,
+                borderRadius: BorderRadius.circular(6.0),
+                border: isDone ? null : Border.all(
+                    color: const Color(0xFF86829D),
+                    width: 1.5
+                )
+            ),
+            child: const Image(
+              image: AssetImage('assets/images/check_icon.png'),
             ),
           ),
-          Text(
-            todo,
-            style: TextStyle(
+          Flexible(
+            child: Text(
+              text ,
+              style: TextStyle(
+                color: isDone ? kDarkTextColor : kLightTextColor,
                 fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                color: isDone ? kDarkTextColor : kLightTextColor),
+                fontWeight: isDone ? FontWeight.bold : FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
