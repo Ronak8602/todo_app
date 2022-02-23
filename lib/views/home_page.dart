@@ -84,7 +84,11 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TaskPage(
-                          task: Task(),
+                          task: Task(
+                            id: null,
+                            title: null,
+                            description: null
+                          ),
                         ),
                       ),
                     ).then((value) {

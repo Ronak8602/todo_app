@@ -39,7 +39,7 @@ class DatabaseHelper {
     return taskId;
   }
 
-  Future<void> insertToDo(Todo todo) async {
+  Future<void> insertToDo(TodoClass todo) async {
     Database _db = await database();
     await _db.insert('todo', todo.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
@@ -56,12 +56,12 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<Todo>> getTodo(int taskId) async {
+  Future<List<TodoClass>> getTodo(int taskId) async {
     Database _db = await database();
     List<Map<String, dynamic>> todoMap =
         await _db.rawQuery("SELECT * FROM todo WHERE taskId = $taskId");
     return List.generate(todoMap.length, (index) {
-      return Todo(
+      return TodoClass(
           id: todoMap[index]['id'],
           title: todoMap[index]['title'],
           taskId: todoMap[index]['taskId'],
