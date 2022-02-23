@@ -50,22 +50,32 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.builder(
                           itemCount: values.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TaskPage(
-                                      task: values[index],
-                                    ),
-                                  ),
-                                ).then((value) {
-                                  setState(() {});
-                                });
+                            return Dismissible(
+                              background: Container(
+                                color: Colors.redAccent,
+                              ),
+                              key: UniqueKey(),
+                              onDismissed: (DismissDirection direction) async {
+                                await _db.deleteTask(values[index].id);
+                                setState(() {});
                               },
-                              child: TaskCard(
-                                title: values[index].title,
-                                description: values[index].description,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TaskPage(
+                                        task: values[index],
+                                      ),
+                                    ),
+                                  ).then((value) {
+                                    setState(() {});
+                                  });
+                                },
+                                child: TaskCard(
+                                  title: values[index].title,
+                                  description: values[index].description,
+                                ),
                               ),
                             );
                           },
@@ -84,11 +94,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TaskPage(
-                          task: Task(
-                            id: null,
-                            title: null,
-                            description: null
-                          ),
+                          task: Task(id: null, title: null, description: null),
                         ),
                       ),
                     ).then((value) {

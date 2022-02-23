@@ -7,6 +7,7 @@ const Color kBackgroundWhiteColor = Color(0xfff6f6f6);
 const Color kPureWhiteColor = Colors.white;
 const Color kPurpleColor = Color(0xff7349fe);
 const Color kPinkColor = Color(0xfffe3577);
+const Color kGreenColor = Color.fromRGBO(122,252,214,1);
 
 
 
