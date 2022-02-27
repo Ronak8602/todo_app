@@ -75,9 +75,9 @@ class _TaskPageState extends State<TaskPage> {
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(24.0),
-                          child:  Image(
-                            image: AssetImage(
-                                'assets/images/back_arrow_icon.png'),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: kDarkTextColor,
                           ),
                         ),
                       ),
@@ -127,15 +127,17 @@ class _TaskPageState extends State<TaskPage> {
                     child: TextField(
                       focusNode: _descriptionFocus,
                       onSubmitted: (value) async {
-                        if(value != ""){
-                          if(_taskId != 0){
-                            await _dbHelper.updateTaskDescription(_taskId, value);
+                        if (value != "") {
+                          if (_taskId != 0) {
+                            await _dbHelper.updateTaskDescription(
+                                _taskId, value);
                             _taskDescription = value;
                           }
                         }
                         _todoFocus.requestFocus();
                       },
-                      controller: TextEditingController()..text = _taskDescription,
+                      controller: TextEditingController()
+                        ..text = _taskDescription,
                       decoration: const InputDecoration(
                         hintText: "Enter Description for the task...",
                         border: InputBorder.none,
@@ -159,18 +161,19 @@ class _TaskPageState extends State<TaskPage> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () async {
-                                if(values[index].isDone == 0){
-                                  await _dbHelper.updateTodoDone(values[index].id, 1);
+                                if (values[index].isDone == 0) {
+                                  await _dbHelper.updateTodoDone(
+                                      values[index].id, 1);
                                 } else {
-                                  await _dbHelper.updateTodoDone(values[index].id, 0);
+                                  await _dbHelper.updateTodoDone(
+                                      values[index].id, 0);
                                 }
                                 setState(() {});
                               },
                               child: Todo(
                                 text: values[index].title,
-                                isDone: values[index].isDone == 0
-                                    ? false
-                                    : true,
+                                isDone:
+                                    values[index].isDone == 0 ? false : true,
                               ),
                             );
                           },
@@ -198,9 +201,6 @@ class _TaskPageState extends State<TaskPage> {
                               borderRadius: BorderRadius.circular(6.0),
                               border: Border.all(
                                   color: kLightTextColor, width: 1.5)),
-                          child: const Image(
-                            image: AssetImage('assets/images/check_icon.png'),
-                          ),
                         ),
                         Expanded(
                           child: TextField(
@@ -212,7 +212,7 @@ class _TaskPageState extends State<TaskPage> {
                                 if (_taskId != 0) {
                                   DatabaseHelper _dbHelper = DatabaseHelper();
                                   TodoClass _newTodo = TodoClass(
-                                    title : value,
+                                    title: value,
                                     isDone: 0,
                                     taskId: _taskId,
                                   );
@@ -243,22 +243,21 @@ class _TaskPageState extends State<TaskPage> {
                 right: 24.0,
                 child: GestureDetector(
                   onTap: () async {
-                    if(_taskId != 0) {
+                    if (_taskId != 0) {
                       await _dbHelper.deleteTask(_taskId);
                       Navigator.pop(context);
                     }
                   },
                   child: Container(
-                    width: 60.0,
-                    height: 60.0,
+                    width: MediaQuery.of(context).size.width * 0.16,
+                    height: MediaQuery.of(context).size.width * 0.16,
                     decoration: BoxDecoration(
-                      color: kPinkColor,
+                      color: Colors.redAccent,
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    child: const Image(
-                      image: AssetImage(
-                        "assets/images/delete_icon.png",
-                      ),
+                    child: const Icon(
+                      Icons.delete_forever,
+                      color: Colors.white,
                     ),
                   ),
                 ),

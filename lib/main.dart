@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/views/home_page.dart';
+import 'package:todo_app/views/splash_screen.dart';
 
 void main() {
   runApp(const Initial());
@@ -15,7 +15,7 @@ class Initial extends StatelessWidget {
         fontFamily: 'Nunito Sans'
         ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

@@ -9,36 +9,38 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
       decoration: BoxDecoration(
         color: kPureWhiteColor,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title ?? "No Title!",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22.0,
-              color: kDarkTextColor,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              description ?? "No Description!",
+      child: Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title ?? "No Title!",
               style: const TextStyle(
-                fontSize: 16.0,
-                color: kLightTextColor,
-                height: 1.5,
+                fontWeight: FontWeight.bold,
+                fontSize: 22.0,
+                color: kDarkTextColor,
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 6.0),
+              child: Text(
+                description ?? "No Description!",
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  color: kLightTextColor,
+                  height: 1.5,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -47,7 +49,8 @@ class TaskCard extends StatelessWidget {
 class Todo extends StatelessWidget {
   final String text;
   final bool isDone;
-  const Todo({Key? key, required this.text, required this.isDone}) : super(key: key);
+  const Todo({Key? key, required this.text, required this.isDone})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +70,20 @@ class Todo extends StatelessWidget {
             decoration: BoxDecoration(
                 color: isDone ? kPurpleColor : Colors.transparent,
                 borderRadius: BorderRadius.circular(6.0),
-                border: isDone ? null : Border.all(
-                    color: const Color(0xFF86829D),
-                    width: 1.5
-                )
-            ),
-            child: const Image(
-              image: AssetImage('assets/images/check_icon.png'),
+                border: isDone
+                    ? null
+                    : Border.all(color: const Color(0xFF86829D), width: 1.5)),
+            child: const Center(
+              child: Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 16.0,
+              ),
             ),
           ),
           Flexible(
             child: Text(
-              text ,
+              text,
               style: TextStyle(
                 color: isDone ? kDarkTextColor : kLightTextColor,
                 fontSize: 16.0,
